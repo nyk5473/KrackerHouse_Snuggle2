@@ -157,27 +157,34 @@ async function loadProductsPage() {
       return;
     }
 
-    productsGrid.innerHTML = res.items.map(p => `
-      <div class="product-card">
-        <div class="product-card__img">
-          ${p.brand === "SNUGGLE" ? '🧸' : '👕'}
-          <span class="product-card__brand">${p.brand === "SNUGGLE" ? '스너글' : '크래커'}</span>
-        </div>
-        <div class="product-card__info">
-          <div>
-            <span class="product-card__category">${p.category}</span>
-            <h3>${p.name}</h3>
-            <p style="font-size: 13px; color: #777; margin: 4px 0 12px 0;">${p.description || ''}</p>
+    productsGrid.innerHTML = res.items.map(p => {
+      const hasRealImage = p.image_url && !p.image_url.includes("placeholder");
+      const imgContent = hasRealImage 
+        ? `<img src="http://localhost:8000${p.image_url}" alt="${p.name}" style="width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 4px;" onerror="this.src='images/${p.image_url.split('/').pop()}'; this.onerror=null;" />`
+        : (p.brand === "SNUGGLE" ? '🧸' : '👕');
+
+      return `
+        <div class="product-card">
+          <div class="product-card__img" style="${hasRealImage ? 'font-size: 0; padding: 0; display: block; overflow: hidden;' : ''}">
+            ${imgContent}
+            <span class="product-card__brand">${p.brand === "SNUGGLE" ? '스너글' : '크래커'}</span>
           </div>
-          <div>
-            <p class="product-card__price">${p.price.toLocaleString()}원</p>
-            <p style="font-size: 12px; color: ${p.stock > 0 ? '#2a9d8f' : '#e63946'}; font-weight: 600; margin-top: 6px;">
-              ${p.stock > 0 ? `재고: ${p.stock}개` : '품절'}
-            </p>
+          <div class="product-card__info">
+            <div>
+              <span class="product-card__category">${p.category}</span>
+              <h3>${p.name}</h3>
+              <p style="font-size: 13px; color: #b8a89c; margin: 4px 0 12px 0; line-height: 1.4;">${p.description || ''}</p>
+            </div>
+            <div>
+              <p class="product-card__price">${p.price.toLocaleString()}원</p>
+              <p style="font-size: 12px; color: ${p.stock > 0 ? '#2a9d8f' : '#e63946'}; font-weight: 600; margin-top: 6px;">
+                ${p.stock > 0 ? `재고: ${p.stock}개` : '품절'}
+              </p>
+            </div>
           </div>
         </div>
-      </div>
-    `).join("");
+      `;
+    }).join("");
   };
 
   // 초기 전체 로딩
