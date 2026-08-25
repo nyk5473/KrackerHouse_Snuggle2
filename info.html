@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>팝업 상세정보 - 크래커하우스 X 스너글</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400;1,700&family=DM+Mono:wght@300;400;500&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --red:#BC453C; --clay:#BF6E50; --orange:#F25C05; --espresso:#594335;
+      --blue:#517EA6; --beige:#EBE4D8; --dark:#1A1208; --dark2:#231609;
+      --card:#2E1D0F; --white:#FFFFFF; --muted:#C4B9AE;
+      --ff-serif:'Playfair Display',serif;
+      --ff-mono:'DM Mono',monospace;
+      --ff-sans:'Noto Sans KR',sans-serif;
+    }
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:var(--ff-sans);background:var(--beige);color:var(--dark);line-height:1.6;}
+    .container { max-width: 800px; margin: 0 auto; background: var(--white); min-height: 100vh; box-shadow: 0 10px 40px rgba(0,0,0,0.1); }
+    .header-img { width: 100%; height: 450px; object-fit: cover; display: block; }
+    .content { padding: 50px 60px; }
+    .eyebrow { font-family: var(--ff-mono); font-size: 12px; color: var(--orange); letter-spacing: 0.15em; margin-bottom: 15px; }
+    .title { font-family: var(--ff-serif); font-size: 42px; line-height: 1.1; margin-bottom: 30px; color: var(--dark); }
+    .story-box { font-size: 16px; color: #444; border-top: 2px solid var(--dark); padding-top: 30px; margin-bottom: 40px; }
+    .info-list { display: grid; grid-template-columns: 100px 1fr; gap: 20px; margin-bottom: 50px; font-size: 15px; }
+    .info-label { font-family: var(--ff-mono); color: var(--clay); font-weight: 500; }
+    .info-val { font-weight: 500; color: var(--dark); }
+    .map-title { font-size: 20px; font-weight: 900; margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 15px; }
+    .map-box { width: 100%; height: 400px; background: #eee; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: #999; font-size: 14px; margin-bottom: 50px; }
+    @media(max-width: 768px) { .content { padding: 30px 20px; } .header-img { height: 300px; } }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="images/hero_main.jpg" class="header-img" alt="Popup Main" />
+    <div class="content">
+      <div class="eyebrow">POP-UP STORE INFO</div>
+      <h1 class="title"><em>Home</em> <strong>alone.</strong></h1>
+      
+      <div class="story-box">
+        크래커하우스의 빈티지 감성과 스너글의 포근함이 만난 특별한 공간.<br/><br/>
+        포근한 질감의 플리스부터 이불처럼 따뜻한 세탁 체험까지.<br/>
+        낯선 도심 속, 나만의 아늑한 세탁소에서 잠시 쉬어가는 특별한 하루를 경험하세요.
+      </div>
+      
+      <div class="info-list">
+        <div class="info-label">장소</div>
+        <div class="info-val">스타필드 빌리지 1F 중앙 광장</div>
+        
+        <div class="info-label">기간</div>
+        <div class="info-val">2026.09.01 &#8211; 09.14</div>
+        
+        <div class="info-label">시간</div>
+        <div class="info-val">10:00 ~ 22:00</div>
+      </div>
+      
+      <h2 class="map-title">약도 (오시는 길)</h2>
+      <div class="map-box">
+        &#128506;&#65039; 스타필드 빌리지 약도 이미지 영역
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -339,7 +339,7 @@
 
 <!-- ══ TOP NAV ══ -->
 <nav id="top-nav">
-  <span class="nav-logo">CRACKER × SNUGGLE</span>
+  <a href="index.html" class="nav-logo">CRACKER × SNUGGLE</a>
   <ul class="nav-links">
     <li><a href="index.html#main-page">main page</a></li>
     <li><a href="index.html#사전등록">사전등록</a></li>
@@ -363,16 +363,14 @@
 <!-- ══ MAIN LAYOUT ══ -->
 <main class="gallery-container">
   
-  <div class="laundry-rope-board">
-    <!-- Horizontal ropes -->
-    <div class="rope-line rope-line--1"></div>
-    <div class="rope-line rope-line--2"></div>
-    <div class="rope-line rope-line--3"></div>
+  <div style="position:relative;padding:0 20px 20px;">
+    <!-- Top rope line -->
+    <div style="position:absolute;top:40px;left:0;right:0;height:3px;background:linear-gradient(to right,transparent,rgba(255,255,255,0.18) 5%,rgba(255,255,255,0.18) 95%,transparent);z-index:0;"></div>
     
-    <!-- Dynamic Polaroid Target -->
-    <div id="laundryLineRope">
-      <div style="text-align: center; padding-top: 220px; color: var(--muted); font-family: var(--ff-mono);">
-        LOADING CLOTHESLINE PHOTO STREAM...
+    <!-- Dynamic Polaroid Target (Grid Layout) -->
+    <div id="laundryLineRope" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:24px 16px;padding-top:60px;position:relative;z-index:1;">
+      <div style="color:var(--muted);font-family:var(--ff-mono);font-size:12px;padding:48px;text-align:center;grid-column:1/-1;">
+        &#129082; 빨랫줄 사진을 불러오는 중...
       </div>
     </div>
   </div>
@@ -396,6 +394,7 @@
       <div id="modalNickname" class="modal-author">스너글베어</div>
       <p id="modalMessage" class="modal-message">포근한 하루 되세요! 🧸</p>
     </div>
+    <button id="modalDeleteBtn" style="position: absolute; bottom: 24px; right: 24px; background: var(--red); color: white; border: none; padding: 6px 14px; border-radius: 4px; font-size: 13px; font-weight: bold; cursor: pointer; transition: all 0.2s;">삭제</button>
   </div>
 </div>
 

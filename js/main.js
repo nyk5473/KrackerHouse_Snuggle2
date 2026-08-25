@@ -134,7 +134,7 @@ async function loadIndexPage() {
         const rotation = -15 + Math.random() * 30; // 약간 삐딱하게
         return `
           <div class="laundry-pin-item" style="left: ${left}%; --rotation: ${rotation}deg;">
-            <img src="http://localhost:8000${p.image_url}" alt="폴라로이드" />
+            <img src="${p.image_url.startsWith('/images') ? '.' + p.image_url : 'http://localhost:8000' + p.image_url}" alt="폴라로이드" />
             <p>${p.nickname}</p>
           </div>
         `;
@@ -160,7 +160,7 @@ async function loadProductsPage() {
     productsGrid.innerHTML = res.items.map(p => {
       const hasRealImage = p.image_url && !p.image_url.includes("placeholder");
       const imgContent = hasRealImage 
-        ? `<img src="http://localhost:8000${p.image_url}" alt="${p.name}" style="width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 4px;" onerror="this.src='images/${p.image_url.split('/').pop()}'; this.onerror=null;" />`
+        ? `<img src="${p.image_url.startsWith('/images') ? '.' + p.image_url : 'http://localhost:8000' + p.image_url}" alt="${p.name}" style="width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 4px;" onerror="this.src='images/${p.image_url.split('/').pop()}'; this.onerror=null;" />`
         : (p.brand === "SNUGGLE" ? '🧸' : '👕');
 
       return `
@@ -264,14 +264,23 @@ async function loadLaundryPage() {
       return;
     }
 
-    laundryLineRope.innerHTML = res.items.map((p, index) => {
-      const left = 5 + (index % 10) * 9; // 지그재그 분산
-      const top = index % 2 === 0 ? "50px" : "90px";
-      const rotation = -15 + Math.random() * 30;
+    laundryLineRope.innerHTML = res.items.map(p => {
+      const pinTypeLabel = p.pin_type === 'PHOTO' ? '&#129082; 폴라로이드' : (p.pin_type === 'RECEIPT' ? '&#129534; 세탁 영수증' : '&#128273; 런드리 키링');
       return `
-        <div class="laundry-pin-item" style="left: ${left}%; top: ${top}; --rotation: ${rotation}deg;" onclick="showPinDetail('${p.nickname}', '${p.message || ''}', '${p.image_url}')">
-          <img src="http://localhost:8000${p.image_url}" alt="폴라로이드" />
-          <p>${p.nickname}</p>
+        <div style="background:var(--card);border:1px solid rgba(255,255,255,0.06);border-radius:4px;overflow:hidden;cursor:pointer;transition:var(--tr);" 
+             onmouseover="this.style.transform='translateY(-4px)'" 
+             onmouseout="this.style.transform=''"
+             onclick="showPinDetail('${p.id}', '${p.nickname}', '${p.message || ''}', '${p.image_url}')">
+          <div style="position:relative;aspect-ratio:3/4;overflow:hidden;">
+            <div style="position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:22px;height:18px;background:var(--espresso);border-radius:3px 3px 0 0;z-index:2;border:1px solid var(--clay);"></div>
+            <img src="${p.image_url.startsWith('/images') ? '.' + p.image_url : 'http://localhost:8000' + p.image_url}" alt="${p.nickname}" style="width:100%;height:100%;object-fit:cover;display:block;filter:sepia(0.15);" onerror="this.onerror=null; this.src='images/placeholder.jpg';" />
+            <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.7) 0%,transparent 50%);"></div>
+            <div style="position:absolute;bottom:0;left:0;right:0;padding:14px;">
+              <div style="font-family:var(--ff-mono);font-size:10px;color:var(--orange);margin-bottom:4px;">${pinTypeLabel}</div>
+              <div style="font-size:13px;font-weight:700;color:var(--white);">${p.nickname}</div>
+              ${p.message ? `<div style="font-size:11px;color:rgba(255,255,255,0.6);margin-top:4px;">${p.message}</div>` : ''}
+            </div>
+          </div>
         </div>
       `;
     }).join("");
@@ -280,15 +289,38 @@ async function loadLaundryPage() {
   renderLaundryLine();
 }
 
-function showPinDetail(nickname, message, imageUrl) {
+function showPinDetail(id, nickname, message, imageUrl) {
   const modal = document.getElementById("pinModal");
   if (!modal) return;
   
-  document.getElementById("modalImg").src = `http://localhost:8000${imageUrl}`;
+  document.getElementById("modalImg").src = imageUrl.startsWith('/images') ? `.${imageUrl}` : `http://localhost:8000${imageUrl}`;
   document.getElementById("modalNickname").textContent = nickname;
   document.getElementById("modalMessage").textContent = message || "포근한 하루 되세요! 🧸";
   
+  const deleteBtn = document.getElementById("modalDeleteBtn");
+  if (deleteBtn) {
+    deleteBtn.onclick = function() { deletePin(id); };
+  }
+  
   modal.classList.add("active");
+}
+
+async function deletePin(id) {
+  if (!confirm("정말 이 사진을 삭제하시겠습니까?")) return;
+  try {
+    const res = await ApiService.rejectContent('pin', id);
+    if (res.success || res.message) {
+      alert("삭제되었습니다.");
+      closePinModal();
+      if (document.getElementById("laundryLineRope")) {
+        loadLaundryPage(); // refresh gallery
+      }
+    } else {
+      alert("삭제 실패: " + res.message);
+    }
+  } catch (err) {
+    alert("오류 발생: " + err.message);
+  }
 }
 
 function closePinModal() {
@@ -323,7 +355,7 @@ function initUploadPage() {
     submitBtn.textContent = "📎 빨랫줄에 집어두기";
 
     if (res.success) {
-      alert("업로드 완료! 관리자 승인 후 빨랫줄에 공개됩니다.");
+      alert("업로드 완료! 지금 바로 빨랫줄 갤러리에서 확인하실 수 있습니다 🧺");
       uploadForm.reset();
       window.location.href = "laundry.html";
     } else {

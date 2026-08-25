@@ -162,8 +162,18 @@ const ApiService = {
       if (!response.ok) throw new Error("빨랫줄 사진을 불러오지 못했습니다.");
       return await response.json();
     } catch (error) {
-      console.error(error);
-      return { total: 0, items: [] };
+      console.error("서버에 연결할 수 없어 임시(가짜) 데이터를 표시합니다.", error);
+      // [MOCK DATA] 서버가 켜져있지 않아도 GitHub Pages에서 동작하도록 임시 데이터 반환
+      return {
+        total: 5,
+        items: [
+          { id: "mock1", nickname: "뽀송스너글", message: "포근한 하루 되세요! 🧸", pin_type: "PHOTO", image_url: "/images/mock_laundry_1.jpg" },
+          { id: "mock2", nickname: "크래커러버", message: "세탁소 분위기 완전 미쳤어요 너무 예쁨 ㅠㅠ", pin_type: "PHOTO", image_url: "/images/mock_laundry_2.jpg" },
+          { id: "mock3", nickname: "빈티지매니아", message: "스너글 향기 맡고 힐링하고 갑니다~", pin_type: "PHOTO", image_url: "/images/mock_laundry_3.jpg" },
+          { id: "mock4", nickname: "세탁요정", message: "이런 감성 너무 좋아요! 사진 찰칵📸", pin_type: "PHOTO", image_url: "/images/mock_laundry_4.jpg" },
+          { id: "mock5", nickname: "주말나들이", message: "오늘 팝업스토어 최고였어요!!", pin_type: "PHOTO", image_url: "/images/mock_laundry_5.jpg" }
+        ]
+      };
     }
   },
 

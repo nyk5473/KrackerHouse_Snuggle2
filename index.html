@@ -1,1864 +1,424 @@
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>크래커하우스 × 스너글 팝업스토어 — 스타필드 빌리지</title>
+  <title>크래커하우스 X 스너글 팝업스토어 — 스타필드 빌리지</title>
   <meta name="description" content="크래커하우스 X 스너글 콜라보 팝업스토어. 스타필드 빌리지 1F, 2026.9.1-9.14" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400;1,700&family=DM+Mono:wght@300;400;500&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap"
-    rel="stylesheet" />
-
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400;1,700&family=DM+Mono:wght@300;400;500&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
   <style>
-    @font-face {
-      font-family: 'SheLeeOkSun';
-      src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_ten@1.0/Her-Leeoksun.woff') format('woff');
-      font-weight: normal;
-      font-style: normal;
-    }
-
-    /* ══════════════════════
-       DESIGN TOKENS
-    ══════════════════════ */
     :root {
-      --red: #BC453C;
-      --clay: #BF6E50;
-      --orange: #F25C05;
-      --espresso: #594335;
-      --blue: #517EA6;
-      --beige: #EBE4D8;
-      --cream: #F7F2EA;
-      --dark: #1A1208;
-      --dark2: #231609;
-      --card: #2E1D0F;
-      --white: #FFFFFF;
-      --muted: #C4B9AE;
-      --ff-serif: 'SheLeeOkSun', 'Playfair Display', serif;
-      --ff-mono: 'DM Mono', monospace;
-      --ff-sans: 'Noto Sans KR', sans-serif;
-      --tr: all 0.28s ease;
-    }
-
-    *,
-    *::before,
-    *::after {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: var(--ff-sans);
-      background: var(--dark);
-      color: var(--white);
-      overflow-x: hidden;
-    }
-
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-
-    /* ── 이미지 플레이스홀더 공통 ── */
-    .img-ph {
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(135deg, var(--card) 0%, #1a0d05 100%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      color: rgba(255, 255, 255, 0.18);
-      font-family: var(--ff-mono);
-      font-size: 11px;
-      letter-spacing: 0.12em;
-      border: 1px dashed rgba(255, 255, 255, 0.08);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .img-ph::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: repeating-linear-gradient(45deg,
-          transparent,
-          transparent 18px,
-          rgba(255, 255, 255, 0.02) 18px,
-          rgba(255, 255, 255, 0.02) 19px);
-    }
-
-    .img-ph__icon {
-      font-size: 32px;
-      opacity: 0.3;
-      position: relative;
-      z-index: 1;
-    }
-
-    .img-ph__label {
-      position: relative;
-      z-index: 1;
-      text-align: center;
-      line-height: 1.8;
-    }
-
-    /* ph 색상 변형 */
-    .img-ph--teal {
-      background: linear-gradient(135deg, #0d2228 0%, #0a1a1f 100%);
-    }
-
-    .img-ph--orange {
-      background: linear-gradient(135deg, #2e1200 0%, #1a0a00 100%);
-    }
-
-    .img-ph--blue {
-      background: linear-gradient(135deg, #0e1e2e 0%, #090f18 100%);
-    }
-
-    .img-ph--warm {
-      background: linear-gradient(135deg, #2a1608 0%, #160a02 100%);
-    }
-
-    /* ══════════════════════
-       TOP NAV
-    ══════════════════════ */
-    #top-nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 58px;
-      background: var(--red);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 36px;
-      z-index: 999;
-      box-shadow: 0 3px 24px rgba(0, 0, 0, 0.35);
-    }
-
-    .nav-logo {
-      font-family: var(--ff-mono);
-      font-size: 13px;
-      font-weight: 500;
-      letter-spacing: 0.14em;
-      background: var(--orange);
-      padding: 5px 14px;
-      border-radius: 3px;
-      color: var(--white);
-    }
-
-    .nav-links {
-      display: flex;
-      list-style: none;
-      gap: 30px;
-    }
-
-    .nav-links a {
-      font-size: 13px;
-      font-weight: 500;
-      color: rgba(255, 255, 255, 0.82);
-      letter-spacing: 0.03em;
-      transition: var(--tr);
-    }
-
-    .nav-links a:hover {
-      color: var(--white);
-    }
-
-    @media (max-width: 768px) {
-      .nav-links {
-        display: none;
-      }
-
-      #top-nav {
-        padding: 0 20px;
-      }
-    }
-
-    /* ══════════════════════
-       § 1  HERO
-       — Un balance weightlessness
-    ══════════════════════ */
-    #main-page {
-      position: relative;
-      width: 100%;
-      height: 100vh;
-      min-height: 600px;
-      overflow: hidden;
-      background: #0d0906;
-    }
-
-    /* Hero full-bleed photo placeholder */
-    .hero-ph {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, #1a3030 0%, #0d1a1a 40%, #0d0906 100%);
-    }
-
-    .hero-ph::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: repeating-linear-gradient(55deg,
-          transparent,
-          transparent 32px,
-          rgba(255, 255, 255, 0.015) 32px,
-          rgba(255, 255, 255, 0.015) 33px);
-    }
-
-    /* grain texture */
-    .hero-grain {
-      position: absolute;
-      inset: 0;
-      opacity: 0.035;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-      background-size: 200px 200px;
-    }
-
-    .hero-photo-label {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-family: var(--ff-mono);
-      font-size: 11px;
-      letter-spacing: 0.15em;
-      color: rgba(255, 255, 255, 0.12);
-      text-align: center;
-      line-height: 2;
-      pointer-events: none;
-    }
-
-    /* Scattered editorial type */
-    .hero-text-layer {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 80px 48px 48px;
-      pointer-events: none;
-    }
-
-    .hw-row {
-      display: flex;
-      align-items: baseline;
-      line-height: 0.93;
-    }
-
-    .hw-row+.hw-row {
-      margin-top: -0.04em;
-    }
-
-    .hw {
-      font-family: var(--ff-sans);
-      font-weight: 900;
-      color: var(--orange);
-      text-transform: lowercase;
-      letter-spacing: -0.025em;
-      font-size: clamp(54px, 9vw, 108px);
-      animation: fadeUp 0.7s ease both;
-    }
-
-    .hw--serif {
-      font-family: var(--ff-serif);
-      font-style: italic;
-      font-size: clamp(50px, 8.5vw, 102px);
-      color: var(--white);
-      font-weight: 700;
-    }
-
-    .hw--gap {
-      flex: 1;
-    }
-
-    @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(28px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .hw:nth-child(2) {
-      animation-delay: 0.1s;
-    }
-
-    .hw:nth-child(3) {
-      animation-delay: 0.2s;
-    }
-
-    .hw:nth-child(4) {
-      animation-delay: 0.3s;
-    }
-
-    /* Bottom info bar */
-    .hero-bottom {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      padding: 0 48px 32px;
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      background: linear-gradient(to top, rgba(0, 0, 0, 0.55) 0%, transparent 100%);
-      pointer-events: all;
-    }
-
-    .hero-credit {
-      font-family: var(--ff-mono);
-      font-size: 10px;
-      color: rgba(255, 255, 255, 0.35);
-      writing-mode: vertical-rl;
-      transform: rotate(180deg);
-      letter-spacing: 0.12em;
-    }
-
-    .hero-scroll {
-      font-family: var(--ff-mono);
-      font-size: 11px;
-      color: rgba(255, 255, 255, 0.35);
-      letter-spacing: 0.12em;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .hero-scroll::after {
-      content: '';
-      display: block;
-      width: 44px;
-      height: 1px;
-      background: rgba(255, 255, 255, 0.25);
-    }
-
-    .hero-pill {
-      background: var(--orange);
-      color: var(--white);
-      padding: 10px 22px;
-      font-size: 13px;
-      font-weight: 700;
-      border-radius: 3px;
-      pointer-events: all;
-      transition: var(--tr);
-    }
-
-    .hero-pill:hover {
-      background: var(--red);
-      transform: translateY(-2px);
-    }
-
-    @media (max-width: 768px) {
-      .hero-text-layer {
-        padding: 80px 20px 48px;
-      }
-
-      .hero-bottom {
-        padding: 0 20px 24px;
-      }
-    }
-
-    /* ══════════════════════
-       § 2  사전등록
-       — Bold color-block CTA
-    ══════════════════════ */
-    #사전등록 {
-      background: var(--orange);
-      padding: 90px 48px;
-    }
-
-    .prereg-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      align-items: center;
-      gap: 56px;
-    }
-
-    @media (max-width: 768px) {
-      .prereg-inner {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .prereg-label {
-      font-family: var(--ff-mono);
-      font-size: 11px;
-      letter-spacing: 0.22em;
-      color: rgba(255, 255, 255, 0.65);
-      margin-bottom: 18px;
-    }
-
-    .prereg-headline {
-      font-family: var(--ff-serif);
-      font-size: clamp(42px, 5.5vw, 72px);
-      font-weight: 900;
-      line-height: 1.0;
-      color: var(--white);
-    }
-
-    .prereg-headline em {
-      font-style: italic;
-      color: var(--dark);
-      display: block;
-    }
-
-    .prereg-desc {
-      font-size: 15px;
-      color: rgba(255, 255, 255, 0.88);
-      line-height: 1.9;
-      max-width: 420px;
-      margin-bottom: 28px;
-    }
-
-    .prereg-btns {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .reg-btn {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 18px 24px;
-      font-size: 15px;
-      font-weight: 700;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: var(--tr);
-      border: none;
-    }
-
-    .reg-btn--web {
-      background: var(--dark);
-      color: var(--white);
-    }
-
-    .reg-btn--web:hover {
-      background: var(--espresso);
-      transform: translateY(-2px);
-    }
-
-    .reg-btn--kiosk {
-      background: rgba(255, 255, 255, 0.18);
-      color: var(--white);
-      border: 1.5px solid rgba(255, 255, 255, 0.45);
-    }
-
-    .reg-btn--kiosk:hover {
-      background: rgba(255, 255, 255, 0.28);
-      transform: translateY(-2px);
-    }
-
-    /* ══════════════════════
-       § 3  브랜드소개
-       — Portrait + copy
-    ══════════════════════ */
-    #브랜드소개 {
-      background: var(--beige);
-      overflow: hidden;
-    }
-
-    .brand-editorial-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      min-height: 78vh;
-    }
-
-    @media (max-width: 768px) {
-      .brand-editorial-row {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    /* Photo placeholder left */
-    .brand-photo-side {
-      position: relative;
-      overflow: hidden;
-      min-height: 480px;
-    }
-
-    .brand-photo-ph {
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(170deg, #1e3040 0%, #0f1a22 60%, #0a1015 100%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 14px;
-      position: relative;
-    }
-
-    .brand-photo-ph::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: repeating-linear-gradient(60deg, transparent, transparent 24px,
-          rgba(255, 255, 255, 0.015) 24px, rgba(255, 255, 255, 0.015) 25px);
-    }
-
-    .brand-ph-icon {
-      font-size: 44px;
-      opacity: 0.22;
-      position: relative;
-      z-index: 1;
-    }
-
-    .brand-ph-label {
-      font-family: var(--ff-mono);
-      font-size: 10px;
-      letter-spacing: 0.15em;
-      color: rgba(255, 255, 255, 0.18);
-      position: relative;
-      z-index: 1;
-      text-align: center;
-      line-height: 2;
-    }
-
-    .brand-part-badge {
-      position: absolute;
-      top: 24px;
-      left: 22px;
-      font-family: var(--ff-serif);
-      font-style: italic;
-      font-size: 15px;
-      color: var(--orange);
-      letter-spacing: 0.04em;
-    }
-
-    /* Copy right */
-    .brand-copy-side {
-      background: var(--dark);
-      padding: 72px 52px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .brand-eyebrow {
-      font-family: var(--ff-mono);
-      font-size: 11px;
-      letter-spacing: 0.2em;
-      color: var(--orange);
-      margin-bottom: 24px;
-    }
-
-    .brand-headline {
-      font-family: var(--ff-serif);
-      font-size: clamp(30px, 3.5vw, 50px);
-      line-height: 1.15;
-      margin-bottom: 32px;
-    }
-
-    .brand-headline span {
-      color: var(--orange);
-    }
-
-    .brand-headline em {
-      font-style: italic;
-      color: var(--clay);
-    }
-
-    .brand-body {
-      font-size: 15px;
-      color: var(--muted);
-      line-height: 1.95;
-      max-width: 430px;
-    }
-
-    .brand-body strong {
-      color: var(--white);
-    }
-
-    /* Divider strip */
-    .brand-divider {
-      background: var(--cream);
-      padding: 52px 40px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 20px;
-      text-align: center;
-    }
-
-    .brand-badge-circle {
-      width: 76px;
-      height: 76px;
-      border-radius: 50%;
-      background: var(--espresso);
-      border: 2px solid var(--clay);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--ff-mono);
-      font-size: 9px;
-      letter-spacing: 0.06em;
-      color: var(--clay);
-      text-align: center;
-      line-height: 1.5;
-    }
-
-    .brand-quote {
-      font-family: var(--ff-serif);
-      font-style: italic;
-      font-size: clamp(15px, 1.8vw, 22px);
-      color: var(--espresso);
-      max-width: 660px;
-      line-height: 1.75;
-    }
-
-    /* ══════════════════════
-       § 4  팝업정보
-       — Kodak film strip
-    ══════════════════════ */
-    #팝업정보 {
-      background: var(--dark);
-    }
-
-    /* Kodak-style header bar */
-    .film-topbar {
-      background: #111;
-      padding: 10px 20px;
-      border-top: 1px solid #1e1e1e;
-      border-bottom: 1px solid #1e1e1e;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      overflow: hidden;
-    }
-
-    .film-seg {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-family: var(--ff-mono);
-      font-size: 10px;
-      color: #555;
-    }
-
-    .film-perfs {
-      display: flex;
-      gap: 4px;
-    }
-
-    .fperf {
-      width: 9px;
-      height: 13px;
-      border-radius: 2px;
-      border: 1px solid #333;
-      background: #080808;
-    }
-
-    /* Info content */
-    .popup-content {
-      padding: 64px 48px 0;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .popup-eyebrow {
-      font-family: var(--ff-mono);
-      font-size: 11px;
-      letter-spacing: 0.2em;
-      color: var(--clay);
-      margin-bottom: 14px;
-    }
-
-    .popup-title {
-      font-family: var(--ff-serif);
-      font-style: italic;
-      font-size: clamp(34px, 4.5vw, 60px);
-      line-height: 1.05;
-      margin-bottom: 48px;
-    }
-
-    .popup-title strong {
-      font-style: normal;
-      color: var(--orange);
-    }
-
-    /* 4-column info grid */
-    .info-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1px;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 8px;
-      overflow: hidden;
-      margin-bottom: 52px;
-    }
-
-    @media (max-width: 900px) {
-      .info-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-
-    .info-cell {
-      background: #1c1208;
-      padding: 28px 22px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .info-cell__ico {
-      font-size: 26px;
-    }
-
-    .info-cell__key {
-      font-family: var(--ff-mono);
-      font-size: 9px;
-      letter-spacing: 0.18em;
-      color: var(--clay);
-      text-transform: uppercase;
-    }
-
-    .info-cell__val {
-      font-size: 14px;
-      font-weight: 700;
-      line-height: 1.45;
-    }
-
-    /* Film-strip zone gallery */
-    .film-strip-outer {
-      background: #0d0906;
-      border-top: 22px solid #111;
-      border-bottom: 22px solid #111;
-      position: relative;
-    }
-
-    .film-holes {
-      position: absolute;
-      left: 0;
-      right: 0;
-      height: 22px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 0 10px;
-    }
-
-    .film-holes--top {
-      top: -22px;
-    }
-
-    .film-holes--bot {
-      bottom: -22px;
-    }
-
-    .fhole {
-      width: 13px;
-      height: 11px;
-      border-radius: 2px;
-      border: 1px solid #2e2e2e;
-      background: #000;
-      flex-shrink: 0;
-    }
-
-    .film-strip-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2px;
-      padding: 2px;
-    }
-
-    @media (max-width: 768px) {
-      .film-strip-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .film-frame {
-      position: relative;
-      aspect-ratio: 4/3;
-      overflow: hidden;
-    }
-
-    /* Zone placeholder */
-    .zone-ph {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 14px;
-      position: relative;
-    }
-
-    .zone-ph--a {
-      background: linear-gradient(160deg, #3a1a08 0%, #180a02 100%);
-    }
-
-    .zone-ph--b {
-      background: linear-gradient(160deg, #0e2035 0%, #05101b 100%);
-    }
-
-    .zone-ph--c {
-      background: linear-gradient(160deg, #1a300a 0%, #0a1605 100%);
-    }
-
-    .zone-ph::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: repeating-linear-gradient(50deg, transparent, transparent 20px,
-          rgba(255, 255, 255, 0.018) 20px, rgba(255, 255, 255, 0.018) 21px);
-    }
-
-    .zone-ph__icon {
-      font-size: 52px;
-      opacity: 0.3;
-      position: relative;
-      z-index: 1;
-    }
-
-    .zone-ph__text {
-      position: relative;
-      z-index: 1;
-      font-family: var(--ff-mono);
-      font-size: 10px;
-      letter-spacing: 0.12em;
-      color: rgba(255, 255, 255, 0.2);
-      text-align: center;
-      line-height: 1.8;
-    }
-
-    /* Frame overlay info */
-    .film-frame__overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(0, 0, 0, 0.78) 0%, transparent 55%);
-    }
-
-    .film-frame__meta {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      padding: 18px 20px;
-    }
-
-    .film-frame__num {
-      font-family: var(--ff-mono);
-      font-size: 10px;
-      color: rgba(255, 255, 255, 0.38);
-      margin-bottom: 5px;
-    }
-
-    .film-frame__title {
-      font-size: 16px;
-      font-weight: 700;
-      margin-bottom: 4px;
-    }
-
-    .film-frame__desc {
-      font-size: 12px;
-      color: rgba(255, 255, 255, 0.6);
-    }
-
-    .film-kodak-bar {
-      background: #111;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 5px 16px;
-      font-family: var(--ff-mono);
-      font-size: 10px;
-      color: #4a4a4a;
-    }
-
-    /* Zone desc footer */
-    .popup-zone-quote {
-      padding: 44px 48px;
-      text-align: center;
-      font-family: var(--ff-serif);
-      font-style: italic;
-      font-size: clamp(15px, 1.6vw, 20px);
-      color: var(--muted);
-      line-height: 2.2;
-    }
-
-    /* ══════════════════════
-       § 5  상품
-       — Asymmetric editorial grid
-    ══════════════════════ */
-    #상품 {
-      background: var(--dark);
-    }
-
-    /* Products headline block */
-    .products-headline-block {
-      background: var(--espresso);
-      padding: 80px 48px 64px;
-    }
-
-    .products-eyebrow {
-      font-family: var(--ff-mono);
-      font-size: 11px;
-      letter-spacing: 0.2em;
-      color: var(--clay);
-      margin-bottom: 18px;
-    }
-
-    .products-big-title {
-      font-family: var(--ff-serif);
-      font-size: clamp(46px, 7.5vw, 92px);
-      font-weight: 900;
-      line-height: 0.93;
-    }
-
-    .products-big-title em {
-      font-style: italic;
-      color: var(--orange);
-      display: block;
-    }
-
-    /* Asymmetric 2-col layout */
-    .products-asym {
-      display: grid;
-      grid-template-columns: 1.4fr 1fr;
-      grid-template-rows: 1fr 1fr;
-      gap: 3px;
-      background: var(--dark);
-    }
-
-    @media (max-width: 768px) {
-      .products-asym {
-        grid-template-columns: 1fr;
-        grid-template-rows: auto;
-      }
-    }
-
-    /* Big left photo (spans 2 rows) */
-    .pa-big {
-      grid-row: span 2;
-      position: relative;
-      min-height: 500px;
-      overflow: hidden;
-    }
-
-    /* Right top: info panel */
-    .pa-info {
-      background: var(--orange);
-      padding: 32px 30px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      min-height: 240px;
-    }
-
-    .pa-info h3 {
-      font-family: var(--ff-serif);
-      font-size: 22px;
-      color: var(--white);
-      line-height: 1.35;
-    }
-
-    .pa-info p {
-      font-size: 13px;
-      color: rgba(255, 255, 255, 0.85);
-      line-height: 1.75;
-      margin-top: 10px;
-    }
-
-    .pa-info-link {
-      font-family: var(--ff-mono);
-      font-size: 12px;
-      color: var(--white);
-      letter-spacing: 0.1em;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      margin-top: 16px;
-      transition: var(--tr);
-    }
-
-    .pa-info-link:hover {
-      opacity: 0.75;
-    }
-
-    /* Right bottom: small photo */
-    .pa-small {
-      position: relative;
-      min-height: 240px;
-      overflow: hidden;
-    }
-
-    /* Photo overlay labels */
-    .pa-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(0, 0, 0, 0.25), transparent 60%);
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: 22px;
-    }
-
-    .pa-tag {
-      font-family: var(--ff-mono);
-      font-size: 9px;
-      letter-spacing: 0.2em;
-      color: var(--orange);
-      margin-bottom: 6px;
-    }
-
-    .pa-name {
-      font-size: 18px;
-      font-weight: 900;
-    }
-
-    .pa-price {
-      font-size: 13px;
-      color: rgba(255, 255, 255, 0.65);
-      margin-top: 4px;
-    }
-
-    /* Mini product cards row */
-    .products-mini-row {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(195px, 1fr));
-      gap: 2px;
-      background: var(--dark);
-      padding: 2px;
-    }
-
-    .prod-mini {
-      background: var(--card);
-      overflow: hidden;
-      transition: var(--tr);
-      cursor: pointer;
-    }
-
-    .prod-mini:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-    }
-
-    .prod-mini__ph {
-      aspect-ratio: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      font-family: var(--ff-mono);
-      font-size: 10px;
-      letter-spacing: 0.1em;
-      color: rgba(255, 255, 255, 0.15);
-      position: relative;
-    }
-
-    .prod-mini__ph--ch {
-      background: linear-gradient(160deg, #2e1a0a 0%, #190d03 100%);
-    }
-
-    .prod-mini__ph--sn {
-      background: linear-gradient(160deg, #0e1e35 0%, #060f1c 100%);
-    }
-
-    .prod-mini__ph--co {
-      background: linear-gradient(160deg, #1a0e2a 0%, #0d0617 100%);
-    }
-
-    .prod-mini__ph::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: repeating-linear-gradient(45deg, transparent, transparent 14px,
-          rgba(255, 255, 255, 0.018) 14px, rgba(255, 255, 255, 0.018) 15px);
-    }
-
-    .prod-mini__emoji {
-      font-size: 40px;
-      opacity: 0.35;
-      position: relative;
-      z-index: 1;
-    }
-
-    .prod-mini__ph-lbl {
-      position: relative;
-      z-index: 1;
-      text-align: center;
-    }
-
-    .prod-mini__body {
-      padding: 14px 16px;
-    }
-
-    .prod-mini__brand {
-      font-family: var(--ff-mono);
-      font-size: 9px;
-      letter-spacing: 0.18em;
-      color: var(--clay);
-      margin-bottom: 6px;
-    }
-
-    .prod-mini__name {
-      font-size: 14px;
-      font-weight: 700;
-      margin-bottom: 6px;
-    }
-
-    .prod-mini__price {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--orange);
-    }
-
-    /* ══════════════════════
-       § 6  방명록
-       — Dark 2-col cinematic
-    ══════════════════════ */
-    #방명록 {
-      background: var(--dark);
-    }
-
-    .guest-wrap {
-      display: grid;
-      grid-template-columns: 1fr 1.15fr;
-      min-height: 580px;
-    }
-
-    @media (max-width: 768px) {
-      .guest-wrap {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .guest-form-col {
-      background: #1c1208;
-      padding: 64px 52px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      border-right: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    .guest-eyebrow {
-      font-family: var(--ff-mono);
-      font-size: 11px;
-      letter-spacing: 0.2em;
-      color: var(--clay);
-      margin-bottom: 20px;
-    }
-
-    .guest-headline {
-      font-family: var(--ff-serif);
-      font-size: clamp(26px, 3vw, 40px);
-      line-height: 1.25;
-      margin-bottom: 32px;
-    }
-
-    .guest-headline em {
-      font-style: italic;
-      color: var(--orange);
-    }
-
-    .g-field {
-      margin-bottom: 14px;
-    }
-
-    .g-input,
-    .g-textarea {
-      width: 100%;
-      padding: 13px 16px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 4px;
-      color: var(--white);
-      font-size: 14px;
-      font-family: var(--ff-sans);
-      outline: none;
-      transition: border-color 0.2s;
-    }
-
-    .g-input:focus,
-    .g-textarea:focus {
-      border-color: var(--orange);
-    }
-
-    .g-textarea {
-      resize: vertical;
-      min-height: 100px;
-    }
-
-    .g-submit {
-      margin-top: 4px;
-      padding: 15px 30px;
-      background: var(--orange);
-      color: var(--white);
-      border: none;
-      border-radius: 4px;
-      font-size: 15px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: var(--tr);
-      align-self: flex-start;
-    }
-
-    .g-submit:hover {
-      background: var(--red);
-      transform: translateY(-2px);
-    }
-
-    /* Guest list col */
-    .guest-list-col {
-      padding: 52px 44px;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      overflow-y: auto;
-      max-height: 580px;
-      background: var(--dark2);
-    }
-
-    .guest-list-col::-webkit-scrollbar {
-      width: 4px;
-    }
-
-    .guest-list-col::-webkit-scrollbar-thumb {
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 4px;
-    }
-
-    .guest-card {
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-left: 3px solid var(--clay);
-      border-radius: 6px;
-      padding: 18px 20px;
-      animation: fadeIn 0.35s ease;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(8px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .guest-card__nick {
-      font-family: var(--ff-mono);
-      font-size: 12px;
-      color: var(--orange);
-      margin-bottom: 8px;
-    }
-
-    .guest-card__msg {
-      font-size: 14px;
-      color: rgba(255, 255, 255, 0.8);
-      line-height: 1.7;
-    }
-
-    .guest-card__date {
-      font-size: 11px;
-      color: rgba(255, 255, 255, 0.28);
-      margin-top: 10px;
-    }
-
-    /* ══════════════════════
-       FOOTER
-    ══════════════════════ */
-    footer {
-      background: var(--red);
-      padding: 36px 48px;
-      text-align: center;
-    }
-
-    .footer-logo {
-      font-family: var(--ff-mono);
-      font-size: 13px;
-      letter-spacing: 0.14em;
-      color: var(--white);
-      margin-bottom: 14px;
-    }
-
-    .footer-info {
-      font-size: 13px;
-      color: rgba(255, 255, 255, 0.82);
-      line-height: 2.1;
-    }
-
-    .footer-copy {
-      font-size: 11px;
-      color: rgba(255, 255, 255, 0.4);
-      margin-top: 18px;
-      font-family: var(--ff-mono);
-    }
+      --red:#BC453C; --clay:#BF6E50; --orange:#F25C05; --espresso:#594335;
+      --blue:#517EA6; --beige:#EBE4D8; --dark:#1A1208; --dark2:#231609;
+      --card:#2E1D0F; --white:#FFFFFF; --muted:#C4B9AE;
+      --ff-serif:'Playfair Display',serif;
+      --ff-mono:'DM Mono',monospace;
+      --ff-sans:'Noto Sans KR',sans-serif;
+      --tr:all 0.28s ease;
+    }
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
+    body{font-family:var(--ff-sans);background:var(--dark);color:var(--white);overflow-x:hidden;}
+    a{text-decoration:none;color:inherit;}
+    #top-nav{position:fixed;top:0;left:0;right:0;height:58px;background:var(--red);display:flex;align-items:center;justify-content:space-between;padding:0 36px;z-index:999;box-shadow:0 3px 24px rgba(0,0,0,0.35);}
+    .nav-logo{font-family:var(--ff-mono);font-size:13px;font-weight:500;letter-spacing:0.14em;background:var(--orange);padding:5px 14px;border-radius:3px;color:var(--white);}
+    .nav-links{display:flex;list-style:none;gap:30px;}
+    .nav-links a{font-size:13px;font-weight:500;color:rgba(255,255,255,0.82);letter-spacing:0.03em;transition:var(--tr);}
+    .nav-links a:hover{color:var(--white);}
+    @media(max-width:768px){.nav-links{display:none;}#top-nav{padding:0 20px;}}
+    #main-page{position:relative;width:100%;height:100vh;min-height:600px;overflow:hidden;background:#0d0906;}
+    .hero-grain{position:absolute;inset:0;opacity:0.035;}
+    .hero-text-layer{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:80px 48px 48px;pointer-events:none;}
+    .hw-row{display:flex;align-items:baseline;line-height:0.93;}
+    .hw-row+.hw-row{margin-top:-0.04em;}
+    .hw{font-family:var(--ff-sans);font-size:clamp(80px,14vw,200px);font-weight:900;letter-spacing:-0.04em;color:var(--white);opacity:0.92;animation:fadeUp 0.7s ease both;}
+    .hw--serif{font-family:var(--ff-serif);font-style:italic;font-weight:700;color:var(--orange);}
+    .hw--gap{flex:1;}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:translateY(0);}}
+    .hero-bottom{position:absolute;bottom:0;left:0;right:0;padding:0 48px 32px;display:flex;justify-content:space-between;align-items:flex-end;background:linear-gradient(to top,rgba(0,0,0,0.55) 0%,transparent 100%);}
+    .hero-credit{font-family:var(--ff-mono);font-size:10px;color:rgba(255,255,255,0.35);writing-mode:vertical-rl;transform:rotate(180deg);letter-spacing:0.12em;}
+    .hero-scroll{font-family:var(--ff-mono);font-size:11px;color:rgba(255,255,255,0.35);letter-spacing:0.12em;display:flex;align-items:center;gap:8px;}
+    .hero-scroll::after{content:'';display:block;width:44px;height:1px;background:rgba(255,255,255,0.25);}
+    .hero-pill{background:var(--orange);color:var(--white);padding:10px 22px;font-size:13px;font-weight:700;border-radius:3px;transition:var(--tr);}
+    .hero-pill:hover{background:var(--red);transform:translateY(-2px);}
+    #popup-section{background:var(--dark);padding:0;}
+    .film-topbar{background:#111;padding:10px 20px;display:flex;justify-content:space-between;align-items:center;}
+    .film-seg{display:flex;align-items:center;gap:8px;font-family:var(--ff-mono);font-size:10px;color:#555;}
+    .film-perfs{display:flex;gap:4px;}
+    .fperf{width:9px;height:13px;border-radius:2px;border:1px solid #333;background:#080808;}
+    .popup-content{padding:64px 48px 0;max-width:1100px;margin:0 auto;}
+    .popup-eyebrow{font-family:var(--ff-mono);font-size:11px;letter-spacing:0.2em;color:var(--clay);margin-bottom:14px;}
+    .popup-title{font-family:var(--ff-serif);font-style:italic;font-size:clamp(34px,4.5vw,60px);line-height:1.05;margin-bottom:48px;}
+    .popup-title strong{font-style:normal;color:var(--orange);}
+    .info-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.06);border-radius:8px;overflow:hidden;margin-bottom:52px;}
+    @media(max-width:900px){.info-grid{grid-template-columns:1fr 1fr;}}
+    .info-cell{background:#1c1208;padding:28px 22px;display:flex;flex-direction:column;gap:8px;}
+    .info-cell__ico{font-size:26px;}
+    .info-cell__key{font-family:var(--ff-mono);font-size:9px;letter-spacing:0.18em;color:var(--clay);text-transform:uppercase;}
+    .info-cell__val{font-size:14px;font-weight:700;line-height:1.45;}
+    .film-strip-outer{position:relative;padding-bottom:22px;}
+    .film-holes{position:absolute;left:0;right:0;height:22px;display:flex;align-items:center;gap:10px;padding:0 10px;}
+    .film-holes--top{top:-22px;}.film-holes--bot{bottom:-22px;}
+    .fhole{width:13px;height:11px;border-radius:2px;border:1px solid #2e2e2e;background:#000;flex-shrink:0;}
+    .film-strip-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:2px;padding:2px;}
+    @media(max-width:1100px){.film-strip-grid{grid-template-columns:repeat(3,1fr);}}
+    @media(max-width:640px){.film-strip-grid{grid-template-columns:repeat(2,1fr);}}
+    .film-frame{position:relative;aspect-ratio:3/4;overflow:hidden;}
+    .film-frame__img{width:100%;height:100%;object-fit:cover;display:block;}
+    .film-frame__overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.9) 0%,rgba(0,0,0,0.2) 55%,transparent 100%);}
+    .film-frame__meta{position:absolute;bottom:0;left:0;right:0;padding:14px 14px 16px;}
+    .film-frame__num{font-family:var(--ff-mono);font-size:9px;color:rgba(255,255,255,0.35);margin-bottom:5px;}
+    .film-frame__zone-badge{display:inline-block;background:var(--orange);color:var(--white);font-family:var(--ff-mono);font-size:10px;font-weight:700;letter-spacing:0.1em;padding:2px 8px;border-radius:2px;margin-bottom:7px;}
+    .film-frame__title{font-size:13px;font-weight:700;line-height:1.35;margin-bottom:5px;}
+    .film-frame__desc{font-size:11px;color:rgba(255,255,255,0.6);line-height:1.5;}
+    .film-kodak-bar{background:#111;display:flex;align-items:center;justify-content:space-between;padding:5px 16px;font-family:var(--ff-mono);font-size:10px;color:#4a4a4a;}
+    .popup-zone-quote{padding:44px 48px;text-align:center;font-family:var(--ff-serif);font-style:italic;font-size:clamp(15px,1.6vw,20px);color:var(--muted);line-height:2.2;}
+    #prereg-section{background:var(--orange);padding:72px 48px;}
+    .prereg-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:56px;}
+    @media(max-width:768px){.prereg-inner{grid-template-columns:1fr;}}
+    .prereg-label{font-family:var(--ff-mono);font-size:11px;letter-spacing:0.22em;color:rgba(255,255,255,0.65);margin-bottom:18px;}
+    .prereg-headline{font-family:var(--ff-serif);font-size:clamp(42px,5.5vw,72px);font-weight:900;line-height:1.0;color:var(--white);}
+    .prereg-headline em{font-style:italic;color:var(--dark);display:block;}
+    .prereg-desc{font-size:15px;color:rgba(255,255,255,0.88);line-height:1.9;max-width:420px;margin-bottom:28px;}
+    .prereg-btns{display:flex;flex-direction:column;gap:12px;}
+    .reg-btn{display:flex;align-items:center;justify-content:space-between;padding:18px 24px;font-size:15px;font-weight:700;border-radius:4px;cursor:pointer;transition:var(--tr);border:none;}
+    .reg-btn--web{background:var(--dark);color:var(--white);}
+    .reg-btn--web:hover{background:var(--espresso);transform:translateY(-2px);}
+    .reg-btn--kiosk{background:rgba(255,255,255,0.18);color:var(--white);border:1.5px solid rgba(255,255,255,0.45);}
+    .reg-btn--kiosk:hover{background:rgba(255,255,255,0.28);transform:translateY(-2px);}
+    #brand-section{background:var(--beige);overflow:hidden;padding:0;}
+    .brand-editorial-row{display:grid;grid-template-columns:1fr 1fr;min-height:78vh;}
+    @media(max-width:768px){.brand-editorial-row{grid-template-columns:1fr;}}
+    .brand-photo-side{position:relative;overflow:hidden;min-height:480px;}
+    .brand-part-badge{position:absolute;top:24px;left:22px;font-family:var(--ff-serif);font-style:italic;font-size:15px;color:var(--orange);letter-spacing:0.04em;z-index:2;}
+    .brand-copy-side{background:var(--dark);padding:72px 52px;display:flex;flex-direction:column;justify-content:center;}
+    .brand-eyebrow{font-family:var(--ff-mono);font-size:11px;letter-spacing:0.2em;color:var(--orange);margin-bottom:24px;}
+    .brand-headline{font-family:var(--ff-serif);font-size:clamp(30px,3.5vw,50px);line-height:1.15;margin-bottom:32px;}
+    .brand-headline span{color:var(--orange);}
+    .brand-headline em{font-style:italic;color:var(--clay);}
+    .brand-body{font-size:15px;color:var(--muted);line-height:1.95;max-width:430px;}
+    .brand-body strong{color:var(--white);}
+    .brand-divider{background:var(--beige);padding:52px 40px;display:flex;flex-direction:column;align-items:center;gap:20px;text-align:center;}
+    .brand-badge-circle{width:76px;height:76px;border-radius:50%;background:var(--espresso);border:2px solid var(--clay);display:flex;align-items:center;justify-content:center;font-family:var(--ff-mono);font-size:9px;color:var(--clay);line-height:1.5;}
+    .brand-quote{font-family:var(--ff-serif);font-style:italic;font-size:clamp(15px,1.8vw,22px);color:var(--espresso);max-width:660px;line-height:1.75;}
+    #product-section{background:var(--dark);padding:0;}
+    .products-headline-block{padding:72px 48px 0;}
+    .products-eyebrow{font-family:var(--ff-mono);font-size:11px;letter-spacing:0.2em;color:var(--clay);margin-bottom:18px;}
+    .products-big-title{font-family:var(--ff-serif);font-size:clamp(46px,7.5vw,92px);font-weight:900;line-height:0.93;}
+    .products-big-title em{font-style:italic;color:var(--orange);display:block;}
+    .products-asym{display:grid;grid-template-columns:1.4fr 1fr;grid-template-rows:1fr 1fr;gap:3px;}
+    @media(max-width:768px){.products-asym{grid-template-columns:1fr;grid-template-rows:auto;}}
+    .pa-big{grid-row:span 2;position:relative;min-height:500px;overflow:hidden;}
+    .pa-info{background:var(--orange);padding:32px 30px;display:flex;flex-direction:column;justify-content:space-between;min-height:240px;}
+    .pa-info h3{font-family:var(--ff-serif);font-size:22px;color:var(--white);line-height:1.35;}
+    .pa-info p{font-size:13px;color:rgba(255,255,255,0.85);line-height:1.75;margin-top:10px;}
+    .pa-info-link{font-family:var(--ff-mono);font-size:12px;color:var(--white);letter-spacing:0.1em;margin-top:16px;transition:var(--tr);}
+    .pa-small{position:relative;min-height:240px;overflow:hidden;}
+    .pa-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,0,0,0.25),transparent 60%);display:flex;flex-direction:column;justify-content:flex-end;padding:22px;}
+    .pa-tag{font-family:var(--ff-mono);font-size:9px;letter-spacing:0.2em;color:var(--orange);margin-bottom:6px;}
+    .pa-name{font-size:18px;font-weight:900;}
+    .pa-price{font-size:13px;color:rgba(255,255,255,0.65);margin-top:4px;}
+    .products-mini-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:2px;padding:2px;}
+    .prod-mini{overflow:hidden;transition:var(--tr);cursor:pointer;}
+    .prod-mini:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,0,0,0.3);}
+    .prod-mini__ph{aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;font-family:var(--ff-mono);font-size:10px;color:rgba(255,255,255,0.15);}
+    .prod-mini__ph--ch{background:linear-gradient(160deg,#2e1a0a,#190d03);}
+    .prod-mini__ph--sn{background:linear-gradient(160deg,#0e1e35,#060f1c);}
+    .prod-mini__ph--co{background:linear-gradient(160deg,#1a0e2a,#0d0617);}
+    .prod-mini__emoji{font-size:40px;opacity:0.35;}
+    .prod-mini__body{padding:14px 16px;background:#1c1208;}
+    .prod-mini__brand{font-family:var(--ff-mono);font-size:9px;letter-spacing:0.18em;color:var(--clay);margin-bottom:6px;}
+    .prod-mini__name{font-size:14px;font-weight:700;margin-bottom:6px;}
+    .prod-mini__price{font-size:13px;font-weight:700;color:var(--orange);}
+    #laundry-section{background:var(--dark2);padding:72px 0 0;}
+    #guest-section{background:var(--dark);padding:0;}
+    .guest-wrap{display:grid;grid-template-columns:1fr 1.15fr;min-height:580px;}
+    @media(max-width:768px){.guest-wrap{grid-template-columns:1fr;}}
+    .guest-form-col{background:#1c1208;padding:64px 52px;display:flex;flex-direction:column;justify-content:center;border-right:1px solid rgba(255,255,255,0.05);}
+    .guest-eyebrow{font-family:var(--ff-mono);font-size:11px;letter-spacing:0.2em;color:var(--clay);margin-bottom:20px;}
+    .guest-headline{font-family:var(--ff-serif);font-size:clamp(26px,3vw,40px);line-height:1.25;margin-bottom:32px;}
+    .guest-headline em{font-style:italic;color:var(--orange);}
+    .g-input,.g-textarea{width:100%;padding:13px 16px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:4px;color:var(--white);font-size:14px;font-family:var(--ff-sans);outline:none;transition:border-color 0.2s;}
+    .g-input:focus,.g-textarea:focus{border-color:var(--orange);}
+    .g-textarea{resize:vertical;min-height:100px;}
+    .g-submit{margin-top:4px;padding:15px 30px;background:var(--orange);color:var(--white);border:none;border-radius:4px;font-size:15px;font-weight:700;cursor:pointer;transition:var(--tr);}
+    .g-submit:hover{background:var(--red);transform:translateY(-2px);}
+    .guest-list-col{display:flex;flex-direction:column;gap:14px;overflow-y:auto;max-height:580px;background:var(--dark2);padding:32px;}
+    .guest-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-left:3px solid var(--clay);border-radius:6px;padding:18px 20px;animation:fadeIn 0.35s ease;}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+    .guest-card__nick{font-family:var(--ff-mono);font-size:12px;color:var(--orange);margin-bottom:8px;}
+    .guest-card__msg{font-size:14px;color:rgba(255,255,255,0.8);line-height:1.7;}
+    .guest-card__date{font-size:11px;color:rgba(255,255,255,0.28);margin-top:10px;}
+    footer{background:var(--red);padding:36px 48px;text-align:center;}
+    .footer-logo{font-family:var(--ff-mono);font-size:13px;letter-spacing:0.14em;color:var(--white);margin-bottom:14px;}
+    .footer-info{font-size:13px;color:rgba(255,255,255,0.82);line-height:2.1;}
+    .footer-copy{font-size:11px;color:rgba(255,255,255,0.4);margin-top:18px;font-family:var(--ff-mono);}
   </style>
 </head>
-
 <body>
 
-  <!-- ╔══════════════════════════════╗
-     ║  TOP NAV
-     ╚══════════════════════════════╝ -->
-  <nav id="top-nav">
-    <span class="nav-logo">CRACKER × SNUGGLE</span>
-    <ul class="nav-links">
-      <li><a href="#main-page">main page</a></li>
-      <li><a href="#사전등록">사전등록</a></li>
-      <li><a href="#브랜드소개">브랜드소개</a></li>
-      <li><a href="#팝업정보">팝업정보</a></li>
-      <li><a href="#상품">상품</a></li>
-      <li><a href="#방명록">방명록</a></li>
-    </ul>
-  </nav>
+<nav id="top-nav">
+  <a href="index.html" class="nav-logo">CRACKER &#215; SNUGGLE</a>
+  <ul class="nav-links">
+    <li><a href="#check-in-container">팝업정보</a></li>
+    <li><a href="#prereg-section">사전등록</a></li>
+    <li><a href="#brand-section">브랜드소개</a></li>
+    <li><a href="#product-section">상품</a></li>
+    <li><a href="#laundry-section">사진 빨랫줄</a></li>
+    <li><a href="#guest-section">방명록</a></li>
+  </ul>
+</nav>
 
-
-  <!-- ╔══════════════════════════════╗
-     ║  § 1  HERO
-     ╚══════════════════════════════╝ -->
-  <section id="main-page">
-
-    <!-- full-bleed photo -->
-    <img src="images/model_basket.jpg" alt="Hero Image"
-      style="width: 100%; height: 100%; object-fit: cover; opacity: 0.85;" />
+<section id="popup-section">
+  <div id="main-page">
+    <img src="images/hero_main.jpg" alt="Hero" style="width:100%;height:100%;object-fit:cover;opacity:0.88;position:absolute;inset:0;" />
     <div class="hero-grain"></div>
-
-    <!-- Scattered editorial type -->
     <div class="hero-text-layer">
-      <div class="hw-row">
-        <span class="hw">Un</span>
-        <span class="hw--gap"></span>
-        <span class="hw">ba</span>
-        <span class="hw hw--serif">lan</span>
-        <span class="hw">ce</span>
-      </div>
-      <div class="hw-row">
-        <span class="hw hw--serif">wei</span>
-        <span class="hw">ght</span>
-        <span class="hw--gap"></span>
-        <span class="hw">less</span>
-      </div>
-      <div class="hw-row">
-        <span class="hw--gap"></span>
-        <span class="hw hw--serif">ness</span>
-      </div>
+      <div class="hw-row"><span class="hw">Un</span><span class="hw--gap"></span><span class="hw">ba</span><span class="hw hw--serif">lan</span><span class="hw">ce</span></div>
+      <div class="hw-row"><span class="hw hw--serif">wei</span><span class="hw">ght</span><span class="hw--gap"></span><span class="hw">less</span></div>
+      <div class="hw-row"><span class="hw--gap"></span><span class="hw hw--serif">ness</span></div>
     </div>
-
-    <!-- Bottom bar -->
     <div class="hero-bottom">
-      <span class="hero-credit">Cracker House × Snuggle 2026</span>
+      <span class="hero-credit">Cracker House &#215; Snuggle 2026</span>
       <span class="hero-scroll">scroll</span>
-      <a href="#사전등록" class="hero-pill">9.1 — 9.14 &nbsp; 사전등록 →</a>
+      <a href="#prereg-section" class="hero-pill">9.1 &#8212; 9.14 &nbsp; 사전등록 &#8594;</a>
     </div>
-  </section>
+  </div>
 
+  <div class="film-topbar">
+    <div class="film-seg"><div class="film-perfs"><div class="fperf"></div><div class="fperf"></div><div class="fperf"></div></div><span>8305</span></div>
+    <div class="film-seg"><span>8A &#9658; SSF STARFIELD VILLAGE</span></div>
+    <div class="film-seg"><span>9</span><div class="film-perfs"><div class="fperf"></div><div class="fperf"></div></div></div>
+    <div class="film-seg"><span>&#9658;&#9658; CRACKER &#215; SNUGGLE POP-UP</span></div>
+    <div class="film-seg"><div class="film-perfs"><div class="fperf"></div><div class="fperf"></div><div class="fperf"></div></div><span>8305</span></div>
+  </div>
 
-  <!-- ╔══════════════════════════════╗
-     ║  § 2  사전등록
-     ╚══════════════════════════════╝ -->
-  <section id="사전등록">
-    <div class="prereg-inner">
+    <div id="check-in-container" style="text-align:center; padding: 120px 20px;">
+    <a id="btn-check-in" href="info.html" target="_blank" style="display: inline-block; padding: 18px 50px; font-size: 24px; font-weight: 900; background: var(--orange); color: var(--white); text-decoration: none; border-radius: 4px; cursor: pointer; font-family: var(--ff-serif); font-style: italic; letter-spacing: 0.08em; transition: var(--tr); box-shadow: 0 4px 20px rgba(242, 92, 5, 0.3);" onmouseover="this.style.background='var(--red)'; this.style.transform='translateY(-3px)'" onmouseout="this.style.background='var(--orange)'; this.style.transform=''">CHECK IN</a>
+  </div>
 
-      <!-- Left: headline -->
-      <div>
-        <div class="prereg-label">// PRE REGISTRATION</div>
-        <h2 class="prereg-headline">
-          have<br />
-          <em>a good</em>
-          time.
-        </h2>
-      </div>
-
-      <!-- Right: desc + buttons -->
-      <div>
-        <p class="prereg-desc">
-          스타필드 빌리지에서 크래커하우스 × 스너글 콜라보의 특별한 순간을 경험하세요.
-          사전 예약 시 선착순 굿즈 증정 및 체험존 우선 입장 혜택이 있습니다.
-        </p>
-        <div class="prereg-btns">
-          <a href="reservation.html" class="reg-btn reg-btn--web" id="btn-web-reservation">
-            <span>🌐 &nbsp;웹 사전예약 신청하기</span>
-            <span>→</span>
-          </a>
-          <a href="kiosk.html" class="reg-btn reg-btn--kiosk" id="btn-kiosk">
-            <span>📱 &nbsp;현장 대기 등록 (키오스크)</span>
-            <span>↗</span>
-          </a>
-        </div>
-      </div>
-
+  <div id="popup-hidden-content" style="display: none;">
+    <div class="popup-content" id="popup-info">
+    <div class="popup-eyebrow">// POPUP INFORMATION</div>
+    <h2 class="popup-title"><em>Home</em> <strong>alone.</strong></h2>
+    <div class="info-grid">
+      <div class="info-cell"><span class="info-cell__ico">&#128205;</span><div class="info-cell__key">장소</div><div class="info-cell__val">스타필드</div></div>
+      <div class="info-cell"><span class="info-cell__ico">&#128336;</span><div class="info-cell__key">시간</div><div class="info-cell__val">10:00 ~ 22:00</div></div>
+      <div class="info-cell"><span class="info-cell__ico">&#128214;</span><div class="info-cell__key">스토리</div><div class="info-cell__val" style="font-size:12px; font-weight:400; line-height:1.6;">크래커하우스의 빈티지 감성과 스너글의 포근함이 만난 특별한 공간. 낯선 도심 속 나만의 아늑한 세탁소에서 잠시 쉬어가는 하루를 경험하세요.</div></div>
+      <div class="info-cell"><span class="info-cell__ico">&#128506;&#65039;</span><div class="info-cell__key">약도(지도)</div><div class="info-cell__val"><div style="width:100%; height:80px; background:#231609; border-radius:4px; border:1px solid #333; display:flex; align-items:center; justify-content:center; color:#888; font-size:11px;">지도 이미지 (스타필드 빌리지)</div></div></div>
     </div>
-  </section>
+  </div>
 
+  <div class="film-strip-outer">
+    <div class="film-holes film-holes--top" id="fhTop"></div>
+    <div class="film-kodak-bar"><span>4A &#9658; Kodak</span><span>EXPERIENCE ZONES</span><span>5 &#9658;&#9658;</span></div>
+    <div class="film-strip-grid" id="experienceZonesGrid">
 
-  <!-- ╔══════════════════════════════╗
-     ║  § 3  브랜드소개
-     ╚══════════════════════════════╝ -->
-  <section id="브랜드소개">
-
-    <div class="brand-editorial-row">
-
-      <!-- Left: brand photo -->
-      <div class="brand-photo-side">
-        <span class="brand-part-badge" style="z-index: 2;">Part 1.</span>
-        <img src="images/newspaper_washer.jpg" alt="Brand Portrait"
-          style="width: 100%; height: 100%; object-fit: cover; display: block;" />
-      </div>
-
-      <!-- Right: copy -->
-      <div class="brand-copy-side">
-        <div class="brand-eyebrow">// CRACKER HOUSE × SNUGGLE COLLAB</div>
-        <h2 class="brand-headline">
-          The <em>season full of</em><br />
-          <span>CRACKER</span>HOUSE
-        </h2>
-        <p class="brand-body">
-          <strong>크래커하우스(Cracker House)</strong>는 1980–90년대 미국 빈티지 워크웨어에서
-          영감을 받은 패션 브랜드입니다. 투박하지만 진심 어린 일상복의 무게감을 현대적으로
-          재해석합니다.<br /><br />
-          <strong>스너글(Snuggle)</strong>은 의류 섬유에 포근함을 더하는 프리미엄 세탁 세제
-          브랜드입니다. 감촉에서 오는 진짜 휴식을 추구합니다.<br /><br />
-          두 브랜드가 만나 만든 이번 팝업은
-          <em style="color:var(--clay);">"옷과 세탁의 경험을 하나의 라이프스타일로"</em>
-          라는 메시지를 전달합니다.
-        </p>
-      </div>
-
-    </div>
-
-    <!-- Story quote divider -->
-    <div class="brand-divider">
-      <div class="brand-badge-circle">
-        CRACKER<br />×<br />SNUGGLE
-      </div>
-      <p class="brand-quote">
-        "The new season approaches us like the feeling of a journey alone.
-        Excitement before the departure, the warmth of clean fabric on skin —
-        we are fortunate to discover precious moments like this with every wash."
-      </p>
-    </div>
-
-  </section>
-
-
-  <!-- ╔══════════════════════════════╗
-     ║  § 4  팝업정보
-     ╚══════════════════════════════╝ -->
-  <section id="팝업정보">
-
-    <!-- Film strip top bar -->
-    <div class="film-topbar">
-      <div class="film-seg">
-        <div class="film-perfs">
-          <div class="fperf"></div>
-          <div class="fperf"></div>
-          <div class="fperf"></div>
-        </div>
-        <span>8305</span>
-      </div>
-      <div class="film-seg"><span>8A ▶ SSF STARFIELD VILLAGE</span></div>
-      <div class="film-seg">
-        <span>9</span>
-        <div class="film-perfs">
-          <div class="fperf"></div>
-          <div class="fperf"></div>
-        </div>
-      </div>
-      <div class="film-seg"><span>▶▶ CRACKER × SNUGGLE POP-UP</span></div>
-      <div class="film-seg">
-        <div class="film-perfs">
-          <div class="fperf"></div>
-          <div class="fperf"></div>
-          <div class="fperf"></div>
-        </div>
-        <span>8305</span>
-      </div>
-    </div>
-
-    <!-- Info section -->
-    <div class="popup-content">
-      <div class="popup-eyebrow">// POPUP INFORMATION</div>
-      <h2 class="popup-title">
-        <em>Home</em> <strong>alone.</strong>
-      </h2>
-
-      <!-- 4-column info cards -->
-      <div class="info-grid">
-        <div class="info-cell">
-          <span class="info-cell__ico">📍</span>
-          <div class="info-cell__key">Location</div>
-          <div class="info-cell__val" id="infoLocation">스타필드 빌리지 1F 중앙 광장</div>
-        </div>
-        <div class="info-cell">
-          <span class="info-cell__ico">📅</span>
-          <div class="info-cell__key">Period</div>
-          <div class="info-cell__val" id="infoDate">2026.09.01 – 09.14</div>
-        </div>
-        <div class="info-cell">
-          <span class="info-cell__ico">🕐</span>
-          <div class="info-cell__key">Hours</div>
-          <div class="info-cell__val" id="infoHours">매일 10:30 – 22:00</div>
-        </div>
-        <div class="info-cell">
-          <span class="info-cell__ico">📸</span>
-          <div class="info-cell__key">Instagram</div>
-          <div class="info-cell__val">
-            <a id="infoInsta" href="#" style="color:var(--orange);">@crackerhouse.kr</a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Film strip: experience zones -->
-    <div class="film-strip-outer">
-      <!-- top holes -->
-      <div class="film-holes film-holes--top" id="fhTop"></div>
-
-      <div class="film-kodak-bar">
-        <span>4A ▶ Kodak</span>
-        <span>EXPERIENCE ZONES</span>
-        <span>5 ▶▶</span>
-      </div>
-
-      <div class="film-strip-grid" id="experienceZonesGrid">
-        <!-- Zone A -->
-        <div class="film-frame">
-          <img class="film-frame__img" src="images/yellow_chairs.jpg" alt="Zone A — 세탁소 카페" />
-          <div class="film-frame__overlay"></div>
-          <div class="film-frame__meta">
-            <div class="film-frame__num">10 · K400</div>
-            <div class="film-frame__title">ZONE A — 세탁소 카페</div>
-            <div class="film-frame__desc">빈티지 세탁기가 있는 감성 카페존</div>
-          </div>
-        </div>
-        <!-- Zone B -->
-        <div class="film-frame">
-          <img class="film-frame__img" src="images/legs_washer.jpg" alt="Zone B — 스타일링 워크샵" />
-          <div class="film-frame__overlay"></div>
-          <div class="film-frame__meta">
-            <div class="film-frame__num">11 · K400</div>
-            <div class="film-frame__title">ZONE B — 스타일링 워크샵</div>
-            <div class="film-frame__desc">스너글 세탁 & 크래커하우스 코디 체험</div>
-          </div>
-        </div>
-        <!-- Zone C -->
-        <div class="film-frame">
-          <img class="film-frame__img" src="images/jewel_washer.jpg" alt="Zone C — 빨랫줄 포토존" />
-          <div class="film-frame__overlay"></div>
-          <div class="film-frame__meta">
-            <div class="film-frame__num">12 · K400</div>
-            <div class="film-frame__title">ZONE C — 빨랫줄 포토존</div>
-            <div class="film-frame__desc">폴라로이드 사진을 빨랫줄에 걸어두세요</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="film-kodak-bar">
-        <span>9A · Kodak</span><span>▶ 11</span>
-        <span>10A · Kodak</span><span>▶ 11</span>
-        <span>11A · Kodak</span><span>▶ 12</span>
-        <span>12A · Kodak</span>
-      </div>
-
-      <!-- bottom holes -->
-      <div class="film-holes film-holes--bot" id="fhBot"></div>
-    </div>
-
-    <div class="popup-zone-quote">
-      포근한 질감의 플리스부터 이불처럼<br />
-      따뜻한 세탁 체험까지, 가을 한 나절을<br />
-      크래커하우스 × 스너글과 함께 보낸 어떤 하루.
-    </div>
-
-  </section>
-
-
-  <!-- ╔══════════════════════════════╗
-     ║  § 5  상품
-     ╚══════════════════════════════╝ -->
-  <section id="상품">
-
-    <!-- Headline block -->
-    <div class="products-headline-block">
-      <div class="products-eyebrow">// COLLABORATION COLLECTION</div>
-      <h2 class="products-big-title">
-        have<br />
-        <em>a good</em>
-        time.
-      </h2>
-    </div>
-
-    <!-- Asymmetric grid -->
-    <div class="products-asym">
-
-      <!-- Big left: photo -->
-      <div class="pa-big">
-        <img src="images/jewel_washer.jpg" alt="Product Main"
-          style="width: 100%; height: 100%; object-fit: cover; display: block;" />
-        <div class="pa-overlay">
-          <div class="pa-tag">CRACKER HOUSE × SNUGGLE</div>
-          <div class="pa-name">2026 FALL COLLECTION</div>
-          <div class="pa-price">빈티지 워크웨어 × 프리미엄 세탁케어</div>
-        </div>
-      </div>
-
-      <!-- Right top: info panel (orange block) -->
-      <div class="pa-info">
-        <div>
-          <h3>SS COLLECTION<br />— New York</h3>
-          <p>크래커하우스의 워크웨어 실루엣과 스너글의 포근한 세탁 케어가 만났습니다. 이번 팝업에서만 만날 수 있는 한정 콜라보레이션 굿즈도 함께 준비했습니다.</p>
-        </div>
-        <a href="products.html" class="pa-info-link">전체 컬렉션 보기 →</a>
-      </div>
-
-      <!-- Right bottom: small photo -->
-      <div class="pa-small">
-        <img src="images/model_basket.jpg" alt="Product Styling"
-          style="width: 100%; height: 100%; object-fit: cover; display: block;" />
-        <div class="pa-overlay">
-          <div class="pa-tag">CRACKER HOUSE</div>
-          <div class="pa-name">체크 플란넬 셔츠</div>
-          <div class="pa-price">₩89,000</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Mini cards -->
-    <div class="products-mini-row" id="previewProducts">
-      <div class="prod-mini">
-        <div class="prod-mini__ph prod-mini__ph--ch">
-          <span class="prod-mini__emoji">🧥</span>
-          <span class="prod-mini__ph-lbl">PRODUCT<br />IMAGE</span>
-        </div>
-        <div class="prod-mini__body">
-          <div class="prod-mini__brand">CRACKER HOUSE</div>
-          <div class="prod-mini__name">덕 캔버스 워크 재킷</div>
-          <div class="prod-mini__price">₩158,000</div>
-        </div>
-      </div>
-      <div class="prod-mini">
-        <div class="prod-mini__ph prod-mini__ph--ch">
-          <span class="prod-mini__emoji">👔</span>
-          <span class="prod-mini__ph-lbl">PRODUCT<br />IMAGE</span>
-        </div>
-        <div class="prod-mini__body">
-          <div class="prod-mini__brand">CRACKER HOUSE</div>
-          <div class="prod-mini__name">체크 플란넬 셔츠</div>
-          <div class="prod-mini__price">₩89,000</div>
-        </div>
-      </div>
-      <div class="prod-mini">
-        <div class="prod-mini__ph prod-mini__ph--ch">
-          <span class="prod-mini__emoji">👖</span>
-          <span class="prod-mini__ph-lbl">PRODUCT<br />IMAGE</span>
-        </div>
-        <div class="prod-mini__body">
-          <div class="prod-mini__brand">CRACKER HOUSE</div>
-          <div class="prod-mini__name">워크 카고 팬츠</div>
-          <div class="prod-mini__price">₩112,000</div>
-        </div>
-      </div>
-      <div class="prod-mini">
-        <div class="prod-mini__ph prod-mini__ph--sn">
-          <span class="prod-mini__emoji">🧴</span>
-          <span class="prod-mini__ph-lbl">PRODUCT<br />IMAGE</span>
-        </div>
-        <div class="prod-mini__body">
-          <div class="prod-mini__brand">SNUGGLE</div>
-          <div class="prod-mini__name">코튼 시그니처 유연제</div>
-          <div class="prod-mini__price">₩18,000</div>
-        </div>
-      </div>
-      <div class="prod-mini">
-        <div class="prod-mini__ph prod-mini__ph--co">
-          <span class="prod-mini__emoji">🎁</span>
-          <span class="prod-mini__ph-lbl">PRODUCT<br />IMAGE</span>
-        </div>
-        <div class="prod-mini__body">
-          <div class="prod-mini__brand">COLLAB GOODS</div>
-          <div class="prod-mini__name">한정 콜라보 굿즈 세트</div>
-          <div class="prod-mini__price">₩35,000</div>
-        </div>
-      </div>
-      <div class="prod-mini">
-        <div class="prod-mini__ph prod-mini__ph--ch">
-          <span class="prod-mini__emoji">🧦</span>
-          <span class="prod-mini__ph-lbl">PRODUCT<br />IMAGE</span>
-        </div>
-        <div class="prod-mini__body">
-          <div class="prod-mini__brand">CRACKER HOUSE</div>
-          <div class="prod-mini__name">크루 삭스 3-Pack</div>
-          <div class="prod-mini__price">₩24,000</div>
-        </div>
-      </div>
-    </div>
-
-  </section>
-
-
-  <!-- ╔══════════════════════════════╗
-     ║  § 6  방명록
-     ╚══════════════════════════════╝ -->
-  <section id="방명록">
-    <div class="guest-wrap">
-
-      <!-- Write form -->
-      <div class="guest-form-col">
-        <div class="guest-eyebrow">// GUESTBOOK</div>
-        <h2 class="guest-headline">
-          방문 소감을<br />
-          <em>한 마디</em> 남겨주세요
-        </h2>
-        <form class="g-field" id="guestbookForm" style="display:flex;flex-direction:column;gap:12px;">
-          <input type="text" class="g-input" id="gbNickname" placeholder="닉네임 (예: 홍길동)" required />
-          <textarea class="g-textarea" id="gbMessage" placeholder="오늘 팝업스토어는 어떠셨나요? 😊" required></textarea>
-          <button type="submit" class="g-submit" id="gbSubmit">방명록 남기기 ✍️</button>
-        </form>
-      </div>
-
-      <!-- List -->
-      <div class="guest-list-col" id="guestbookList">
-        <div style="color:var(--muted);font-family:var(--ff-mono);font-size:12px;">로딩 중...</div>
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- ╔══════════════════════════════╗
-     ║  FOOTER
-     ╚══════════════════════════════╝ -->
-  <footer>
-    <div class="footer-logo">CRACKER HOUSE × SNUGGLE POP-UP STORE</div>
-    <div class="footer-info">
-      📍 스타필드 빌리지 1F 중앙 광장 &nbsp;|&nbsp;
-      📅 2026.09.01 – 09.14 &nbsp;|&nbsp;
-      🕐 매일 10:30 – 22:00<br />
-      📞 문의: 02-1234-5678 &nbsp;|&nbsp;
-      📸 @crackerhouse.kr
-    </div>
-    <div class="footer-copy">© 2026 Cracker House × Snuggle. All rights reserved.</div>
-  </footer>
-
-
-  <!-- ═══ SCRIPTS ═══ -->
-  <script>
-    // Film perforation holes (auto-generate)
-    ['fhTop', 'fhBot'].forEach(id => {
-      const el = document.getElementById(id);
-      if (!el) return;
-      for (let i = 0; i < 36; i++) {
-        const d = document.createElement('div');
-        d.className = 'fhole';
-        el.appendChild(d);
-      }
-    });
-  </script>
-  <script src="js/api.js"></script>
-  <script>
-    function fmt(d) {
-      const dt = new Date(d);
-      return `${dt.getFullYear()}.${String(dt.getMonth() + 1).padStart(2, '0')}.${String(dt.getDate()).padStart(2, '0')}`;
-    }
-
-    // Popup info
-    async function loadPopupInfo() {
-      const info = await ApiService.getPopupInfo();
-      if (!info) return;
-      const el = id => document.getElementById(id);
-      if (el('infoLocation')) el('infoLocation').textContent = info.location;
-      if (el('infoDate')) el('infoDate').textContent = `${fmt(info.start_date)} – ${fmt(info.end_date)}`;
-      if (el('infoHours')) el('infoHours').textContent = info.operating_hours;
-      if (el('infoInsta') && info.instagram_url) {
-        const h = info.instagram_url.split('/').filter(Boolean).pop();
-        el('infoInsta').textContent = `@${h}`;
-        el('infoInsta').href = info.instagram_url;
-      }
-    }
-
-    // Experience zones
-    async function loadZones() {
-      const zones = await ApiService.getPopupZones();
-      if (!zones || !zones.length) return;
-      const grid = document.getElementById('experienceZonesGrid');
-      const images = [
-        'images/yellow_chairs.jpg',
-        'images/legs_washer.jpg',
-        'images/jewel_washer.jpg'
-      ];
-      const nums = [10, 11, 12];
-      grid.innerHTML = zones.map((z, i) => `
       <div class="film-frame">
-        <img class="film-frame__img" src="${images[i] || 'images/yellow_chairs.jpg'}" alt="Zone Photo" />
+        <img class="film-frame__img" src="images/yellow_chairs.jpg" alt="Zone A" />
         <div class="film-frame__overlay"></div>
         <div class="film-frame__meta">
-          <div class="film-frame__num">${nums[i]} · K400</div>
-          <div class="film-frame__title">ZONE ${['A', 'B', 'C'][i] || i + 1} — ${z.name}</div>
-          <div class="film-frame__desc">${z.description}</div>
+          <div class="film-frame__num">10 &#183; K400</div>
+          <div class="film-frame__zone-badge">ZONE A</div>
+          <div class="film-frame__title">가챠 + 스너글 캡슐 세제 증정</div>
+          <div class="film-frame__desc">가챠머신에서 랜덤 굿즈를 뽑고 스너글 캡슐 세제를 받아가세요</div>
         </div>
       </div>
-    `).join('');
-    }
 
-    // Guestbook
-    async function loadGuestbook() {
-      const data = await ApiService.getGuestbooks();
-      const list = document.getElementById('guestbookList');
-      if (!data?.items?.length) {
-        list.innerHTML = `<div style="color:var(--muted);font-family:var(--ff-mono);font-size:12px;">
-        아직 방명록이 없습니다. 첫 번째로 남겨주세요! ✨</div>`;
-        return;
-      }
-      list.innerHTML = data.items.slice(0, 12).map(g => `
-      <div class="guest-card">
-        <div class="guest-card__nick">${g.nickname}</div>
-        <div class="guest-card__msg">${g.message}</div>
-        <div class="guest-card__date">${fmt(g.created_at)}</div>
+      <div class="film-frame">
+        <img class="film-frame__img" src="images/legs_washer.jpg" alt="Zone B" />
+        <div class="film-frame__overlay"></div>
+        <div class="film-frame__meta">
+          <div class="film-frame__num">11 &#183; K400</div>
+          <div class="film-frame__zone-badge">ZONE B</div>
+          <div class="film-frame__title">체험존</div>
+          <div class="film-frame__desc">크래커하우스 &#215; 스너글 세탁 케어 직접 체험하기</div>
+        </div>
       </div>
-    `).join('');
-    }
 
-    document.getElementById('guestbookForm').addEventListener('submit', async e => {
-      e.preventDefault();
-      const nick = document.getElementById('gbNickname').value.trim();
-      const msg = document.getElementById('gbMessage').value.trim();
-      if (!nick || !msg) return;
-      const btn = document.getElementById('gbSubmit');
-      btn.disabled = true; btn.textContent = '전송 중...';
-      const res = await ApiService.createGuestbook(nick, msg);
-      if (res.success) {
-        document.getElementById('gbNickname').value = '';
-        document.getElementById('gbMessage').value = '';
-        await loadGuestbook();
-        btn.textContent = '✅ 등록 완료!';
-        setTimeout(() => { btn.disabled = false; btn.textContent = '방명록 남기기 ✍️'; }, 2000);
-      } else {
-        alert(res.message);
-        btn.disabled = false; btn.textContent = '방명록 남기기 ✍️';
-      }
-    });
+      <div class="film-frame">
+        <img class="film-frame__img" src="images/jewel_washer.jpg" alt="Zone C" />
+        <div class="film-frame__overlay"></div>
+        <div class="film-frame__meta">
+          <div class="film-frame__num">12 &#183; K400</div>
+          <div class="film-frame__zone-badge">ZONE C</div>
+          <div class="film-frame__title">세탁기 포토존</div>
+          <div class="film-frame__desc">세탁기 문 안에서 찍는 시그니처 폴라로이드 사진</div>
+        </div>
+      </div>
 
-    Promise.all([loadPopupInfo(), loadZones(), loadGuestbook()]);
-  </script>
+      <div class="film-frame">
+        <img class="film-frame__img" src="images/newspaper_washer.jpg" alt="Zone D" />
+        <div class="film-frame__overlay"></div>
+        <div class="film-frame__meta">
+          <div class="film-frame__num">13 &#183; K400</div>
+          <div class="film-frame__zone-badge">ZONE D</div>
+          <div class="film-frame__title">굿즈존</div>
+          <div class="film-frame__desc">크래커하우스 &#215; 스너글 한정 콜라보 굿즈 구매</div>
+        </div>
+      </div>
+
+      <div class="film-frame">
+        <img class="film-frame__img" src="images/hero_main.jpg" alt="Zone E" />
+        <div class="film-frame__overlay"></div>
+        <div class="film-frame__meta">
+          <div class="film-frame__num">14 &#183; K400</div>
+          <div class="film-frame__zone-badge">ZONE E</div>
+          <div class="film-frame__title">조형물존</div>
+          <div class="film-frame__desc">팝업 전용 아트 조형물과 함께하는 포토존</div>
+        </div>
+      </div>
+
+    </div>
+    <div class="film-kodak-bar"><span>10A &#183; Kodak</span><span>&#9658; 11</span><span>11A &#183; Kodak</span><span>&#9658; 12</span><span>12A &#183; Kodak</span><span>&#9658; 13</span><span>13A &#183; Kodak</span><span>&#9658; 14</span><span>14A &#183; Kodak</span></div>
+    <div class="film-holes film-holes--bot" id="fhBot"></div>
+  </div>
+
+  <div class="popup-zone-quote">포근한 질감의 플리스부터 이불처럼<br/>따뜻한 세탁 체험까지, 가을 한 나절을<br/>크래커하우스 &#215; 스너글과 함께 보낸 어떤 하루.</div>
+  </div>
+</section>
+
+<section id="prereg-section">
+  <div class="prereg-inner">
+    <div>
+      <div class="prereg-label">// PRE REGISTRATION</div>
+      <h2 class="prereg-headline">have<br/><em>a good</em> time.</h2>
+    </div>
+    <div>
+      <p class="prereg-desc">스타필드 빌리지에서 크래커하우스 &#215; 스너글 콜라보의 특별한 순간을 경험하세요. 사전 예약 시 선착순 굿즈 증정 및 체험존 우선 입장 혜택이 있습니다.</p>
+      <div class="prereg-btns">
+        <a href="reservation.html" class="reg-btn reg-btn--web" id="btn-web-reservation"><span>🌐 &nbsp;웹 사전예약 신청하기</span><span>&#8594;</span></a>
+        <a href="kiosk.html" class="reg-btn reg-btn--kiosk" id="btn-kiosk"><span>📱 &nbsp;현장 대기 등록 (키오스크)</span><span>&#8599;</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="brand-section">
+  <div class="brand-editorial-row">
+    <div class="brand-photo-side">
+      <span class="brand-part-badge">Part 1.</span>
+      <img src="images/newspaper_washer.jpg" alt="Brand" style="width:100%;height:100%;object-fit:cover;display:block;" />
+    </div>
+    <div class="brand-copy-side">
+      <div class="brand-eyebrow">// CRACKER HOUSE &#215; SNUGGLE COLLAB</div>
+      <h2 class="brand-headline">The <em>season full of</em><br/><span>CRACKER</span>HOUSE</h2>
+      <p class="brand-body">
+        <strong>크래커하우스(Cracker House)</strong>는 1980&#8211;90년대 미국 빈티지 워크웨어에서 영감을 받은 패션 브랜드입니다. 투박하지만 진심 어린 일상복의 무게감을 현대적으로 재해석합니다.<br/><br/>
+        <strong>스너글(Snuggle)</strong>은 의류 섬유에 포근함을 더하는 프리미엄 세탁 세제 브랜드입니다. 감촉에서 오는 진짜 휴식을 추구합니다.<br/><br/>
+        두 브랜드가 만나 만든 이번 팝업은 &#8220;옷과 세탁의 경험을 하나의 라이프스타일로&#8221; 라는 메시지를 전달합니다.
+      </p>
+    </div>
+  </div>
+  <div class="brand-divider">
+    <div class="brand-badge-circle">CRACKER<br/>&#215;<br/>SNUGGLE</div>
+    <p class="brand-quote">&#8220;The new season approaches us like the feeling of a journey alone. Excitement before the departure, the warmth of clean fabric on skin &#8212; we are fortunate to discover precious moments like this with every wash.&#8221;</p>
+  </div>
+</section>
+
+<section id="product-section">
+  <div class="products-headline-block">
+    <div class="products-eyebrow">// COLLABORATION COLLECTION</div>
+    <h2 class="products-big-title">have<br/><em>a good</em> time.</h2>
+  </div>
+  <div class="products-asym">
+    <div class="pa-big"><img src="images/jewel_washer.jpg" alt="Product" style="width:100%;height:100%;object-fit:cover;display:block;" /><div class="pa-overlay"><div class="pa-tag">CRACKER HOUSE &#215; SNUGGLE</div><div class="pa-name">2026 FALL COLLECTION</div><div class="pa-price">빈티지 워크웨어 &#215; 프리미엄 세탁케어</div></div></div>
+    <div class="pa-info"><div><h3>SS COLLECTION<br/>&#8212; New York</h3><p>크래커하우스의 워크웨어 실루엣과 스너글의 포근한 세탁 케어가 만났습니다. 한정 콜라보레이션 굿즈도 함께 준비했습니다.</p></div><a href="products.html" class="pa-info-link">전체 컬렉션 보기 &#8594;</a></div>
+    <div class="pa-small"><img src="images/hero_main.jpg" alt="Styling" style="width:100%;height:100%;object-fit:cover;display:block;" /><div class="pa-overlay"><div class="pa-tag">CRACKER HOUSE</div><div class="pa-name">체크 플란넬 셔츠</div><div class="pa-price">&#8361;89,000</div></div></div>
+  </div>
+  <div class="products-mini-row">
+    <div class="prod-mini"><div class="prod-mini__ph prod-mini__ph--ch"><span class="prod-mini__emoji">🧥</span><span>PRODUCT IMAGE</span></div><div class="prod-mini__body"><div class="prod-mini__brand">CRACKER HOUSE</div><div class="prod-mini__name">덕 캔버스 워크 재킷</div><div class="prod-mini__price">&#8361;158,000</div></div></div>
+    <div class="prod-mini"><div class="prod-mini__ph prod-mini__ph--ch"><span class="prod-mini__emoji">👔</span><span>PRODUCT IMAGE</span></div><div class="prod-mini__body"><div class="prod-mini__brand">CRACKER HOUSE</div><div class="prod-mini__name">체크 플란넬 셔츠</div><div class="prod-mini__price">&#8361;89,000</div></div></div>
+    <div class="prod-mini"><div class="prod-mini__ph prod-mini__ph--ch"><span class="prod-mini__emoji">👖</span><span>PRODUCT IMAGE</span></div><div class="prod-mini__body"><div class="prod-mini__brand">CRACKER HOUSE</div><div class="prod-mini__name">워크 카고 팬츠</div><div class="prod-mini__price">&#8361;112,000</div></div></div>
+    <div class="prod-mini"><div class="prod-mini__ph prod-mini__ph--sn"><span class="prod-mini__emoji">🧴</span><span>PRODUCT IMAGE</span></div><div class="prod-mini__body"><div class="prod-mini__brand">SNUGGLE</div><div class="prod-mini__name">코튼 시그니처 유연제</div><div class="prod-mini__price">&#8361;18,000</div></div></div>
+    <div class="prod-mini"><div class="prod-mini__ph prod-mini__ph--co"><span class="prod-mini__emoji">🎁</span><span>PRODUCT IMAGE</span></div><div class="prod-mini__body"><div class="prod-mini__brand">COLLAB GOODS</div><div class="prod-mini__name">한정 콜라보 굿즈 세트</div><div class="prod-mini__price">&#8361;35,000</div></div></div>
+    <div class="prod-mini"><div class="prod-mini__ph prod-mini__ph--ch"><span class="prod-mini__emoji">🧦</span><span>PRODUCT IMAGE</span></div><div class="prod-mini__body"><div class="prod-mini__brand">CRACKER HOUSE</div><div class="prod-mini__name">크루 삭스 3-Pack</div><div class="prod-mini__price">&#8361;24,000</div></div></div>
+  </div>
+</section>
+
+<section id="laundry-section">
+  <div style="padding:0 48px;max-width:1100px;margin:0 auto;">
+    <div style="font-family:var(--ff-mono);font-size:11px;letter-spacing:0.2em;color:var(--clay);margin-bottom:14px;">// LAUNDRY LINE GALLERY</div>
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:48px;">
+      <h2 style="font-family:var(--ff-serif);font-size:clamp(34px,4.5vw,58px);font-style:italic;line-height:1.05;">사진 <strong style="font-style:normal;color:var(--orange);">빨랫줄</strong></h2>
+      <a href="upload.html" style="display:inline-flex;align-items:center;gap:8px;padding:13px 24px;background:var(--orange);color:var(--white);border-radius:4px;font-size:13px;font-weight:700;" onmouseover="this.style.background='var(--red)'" onmouseout="this.style.background='var(--orange)'">&#128204; 내 사진 달기 &#8594;</a>
+    </div>
+  </div>
+  <div style="position:relative;padding:0 48px 20px;">
+    <div style="position:absolute;top:40px;left:0;right:0;height:3px;background:linear-gradient(to right,transparent,rgba(255,255,255,0.18) 5%,rgba(255,255,255,0.18) 95%,transparent);z-index:0;"></div>
+    <div id="laundryGallery" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:24px 16px;padding-top:60px;padding-bottom:48px;position:relative;z-index:1;">
+      <div style="color:var(--muted);font-family:var(--ff-mono);font-size:12px;padding:48px;text-align:center;grid-column:1/-1;">&#129082; 빨랫줄 사진을 불러오는 중...</div>
+    </div>
+  </div>
+  <div style="text-align:center;padding:0 48px 72px;"><a href="laundry.html" style="font-family:var(--ff-mono);font-size:12px;color:var(--clay);letter-spacing:0.12em;text-decoration:underline;" onmouseover="this.style.color='var(--orange)'" onmouseout="this.style.color='var(--clay)'">전체 갤러리 보기 &#8594;</a></div>
+</section>
+
+<section id="guest-section">
+  <div class="guest-wrap">
+    <div class="guest-form-col">
+      <div class="guest-eyebrow">// GUESTBOOK</div>
+      <h2 class="guest-headline">방문 소감을<br/><em>한 마디</em> 남겨주세요</h2>
+      <form id="guestbookForm" style="display:flex;flex-direction:column;gap:12px;">
+        <input type="text" class="g-input" id="gbNickname" placeholder="닉네임 (예: 홍길동)" required />
+        <textarea class="g-textarea" id="gbMessage" placeholder="오늘 팝업스토어는 어떠셨나요? 😊" required></textarea>
+        <button type="submit" class="g-submit" id="gbSubmit">방명록 남기기 ✍️</button>
+      </form>
+    </div>
+    <div class="guest-list-col" id="guestbookList"><div style="color:var(--muted);font-family:var(--ff-mono);font-size:12px;">로딩 중...</div></div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">CRACKER HOUSE &#215; SNUGGLE POP-UP STORE</div>
+  <div class="footer-info">&#128205; 스타필드 빌리지 1F 중앙 광장 &nbsp;|&nbsp; &#128197; 2026.09.01 &#8211; 09.14 &nbsp;|&nbsp; &#128336; 매일 10:30 &#8211; 22:00<br/>&#128222; 문의: 02-1234-5678 &nbsp;|&nbsp; &#128248; @crackerhouse.kr</div>
+  <div class="footer-copy">&#169; 2026 Cracker House &#215; Snuggle. All rights reserved.</div>
+</footer>
+
+<script>
+  ['fhTop','fhBot'].forEach(function(id){var el=document.getElementById(id);if(!el)return;for(var i=0;i<36;i++){var d=document.createElement('div');d.className='fhole';el.appendChild(d);}});
+</script>
+<script src="js/api.js"></script>
+<script>
+  function fmt(d){var dt=new Date(d);return dt.getFullYear()+'.'+String(dt.getMonth()+1).padStart(2,'0')+'.'+String(dt.getDate()).padStart(2,'0');}
+  async function loadPopupInfo(){
+    var info=await ApiService.getPopupInfo();if(!info)return;
+    var el=function(id){return document.getElementById(id);};
+    if(el('infoLocation'))el('infoLocation').textContent=info.location;
+    if(el('infoDate'))el('infoDate').textContent=fmt(info.start_date)+' - '+fmt(info.end_date);
+    if(el('infoHours'))el('infoHours').textContent=info.operating_hours;
+    if(el('infoInsta')&&info.instagram_url){var h=info.instagram_url.split('/').filter(Boolean).pop();el('infoInsta').textContent='@'+h;el('infoInsta').href=info.instagram_url;}
+  }
+  async function loadZones(){ /* 정적 HTML 존 사용 */ }
+  async function loadLaundryPreview(){
+    var data=await ApiService.getLaundryPins();
+    var gallery=document.getElementById('laundryGallery');
+    if(!data||!data.total){gallery.innerHTML='<div style="color:var(--muted);font-family:var(--ff-mono);font-size:12px;padding:48px;text-align:center;grid-column:1/-1;">&#129082; 아직 달린 사진이 없습니다. 첫 번째로 달아보세요!</div>';return;}
+    gallery.innerHTML=data.items.slice(0,8).map(function(pin){
+      return '<div style="background:var(--card);border:1px solid rgba(255,255,255,0.06);border-radius:4px;overflow:hidden;cursor:pointer;transition:var(--tr);" onmouseover="this.style.transform=\'translateY(-4px)\'" onmouseout="this.style.transform=\'\'"><div style="position:relative;aspect-ratio:3/4;overflow:hidden;"><div style="position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:22px;height:18px;background:var(--espresso);border-radius:3px 3px 0 0;z-index:2;border:1px solid var(--clay);"></div><img src="'+(pin.image_url.startsWith('/images') ? '.' + pin.image_url : 'http://localhost:8000' + pin.image_url)+'" alt="'+pin.nickname+'" style="width:100%;height:100%;object-fit:cover;display:block;filter:sepia(0.15);"/><div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.7) 0%,transparent 50%);"></div><div style="position:absolute;bottom:0;left:0;right:0;padding:14px;"><div style="font-family:var(--ff-mono);font-size:10px;color:var(--orange);margin-bottom:4px;">'+(pin.pin_type==='PHOTO'?'&#129082; 폴라로이드':pin.pin_type==='RECEIPT'?'&#129534; 세탁 영수증':'&#128273; 런드리 키링')+'</div><div style="font-size:13px;font-weight:700;color:var(--white);">'+pin.nickname+'</div>'+(pin.message?'<div style="font-size:11px;color:rgba(255,255,255,0.6);margin-top:4px;">'+pin.message+'</div>':'')+'</div></div></div>';
+    }).join('');
+  }
+  async function loadGuestbook(){
+    var data=await ApiService.getGuestbooks();
+    var list=document.getElementById('guestbookList');
+    if(!data||!data.items||!data.items.length){list.innerHTML='<div style="color:var(--muted);font-family:var(--ff-mono);font-size:12px;">아직 방명록이 없습니다. 첫 번째로 남겨주세요! &#10024;</div>';return;}
+    list.innerHTML=data.items.slice(0,12).map(function(g){return '<div class="guest-card"><div class="guest-card__nick">'+g.nickname+'</div><div class="guest-card__msg">'+g.message+'</div><div class="guest-card__date">'+fmt(g.created_at)+'</div></div>';}).join('');
+  }
+  document.getElementById('guestbookForm').addEventListener('submit',async function(e){
+    e.preventDefault();
+    var nick=document.getElementById('gbNickname').value.trim();
+    var msg=document.getElementById('gbMessage').value.trim();
+    if(!nick||!msg)return;
+    var btn=document.getElementById('gbSubmit');
+    btn.disabled=true;btn.textContent='전송 중...';
+    var res=await ApiService.createGuestbook(nick,msg);
+    if(res.success){document.getElementById('gbNickname').value='';document.getElementById('gbMessage').value='';await loadGuestbook();btn.textContent='&#10003; 등록 완료!';setTimeout(function(){btn.disabled=false;btn.textContent='방명록 남기기 ✍️';},2000);}
+    else{alert(res.message);btn.disabled=false;btn.textContent='방명록 남기기 ✍️';}
+  });
+
+
+  Promise.all([loadPopupInfo(),loadZones(),loadLaundryPreview(),loadGuestbook()]);
+</script>
 </body>
-
 </html>
